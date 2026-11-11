@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Users, CheckSquare, DollarSign, Heart, Edit2, Check, X, CalendarHeart, MailCheck } from 'lucide-react'
+import { Users, CheckSquare, DollarSign, Heart, Edit2, Check, X, CalendarHeart, MailCheck, Anchor, Compass, Waves } from 'lucide-react'
 import { subscribeGuests, subscribeTodos, subscribeBudget, subscribeMoodBoard, subscribeRsvps } from '../services/db'
 
 function CountdownTimer({ weddingDate }) {
@@ -34,16 +34,17 @@ function CountdownTimer({ weddingDate }) {
       {Object.entries(timeLeft).map(([unit, val]) => (
         <div key={unit} style={{ textAlign: 'center' }}>
           <div style={{
-            background: 'rgba(201,168,76,0.12)',
-            border: '1px solid rgba(201,168,76,0.3)',
-            borderRadius: '10px',
-            padding: '0.75rem 1.25rem',
-            minWidth: '70px',
+            background: 'linear-gradient(180deg, rgba(212,175,55,0.14) 0%, rgba(9,21,36,0.85) 100%)',
+            border: '1px solid rgba(212,175,55,0.35)',
+            borderRadius: '12px',
+            padding: '0.85rem 1.4rem',
+            minWidth: '76px',
+            boxShadow: '0 8px 20px rgba(0,0,0,0.4), inset 0 1px 0 rgba(244,226,161,0.2)',
           }}>
-            <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '2.2rem', color: '#c9a84c', lineHeight: 1 }}>
+            <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '2.4rem', color: '#f4e2a1', lineHeight: 1, fontWeight: 600 }}>
               {String(val).padStart(2, '0')}
             </div>
-            <div style={{ fontSize: '0.6rem', color: '#8899aa', textTransform: 'uppercase', letterSpacing: '0.1em', marginTop: '0.25rem' }}>
+            <div style={{ fontSize: '0.62rem', color: '#d4af37', textTransform: 'uppercase', letterSpacing: '0.14em', marginTop: '0.35rem', fontWeight: 500 }}>
               {unit}
             </div>
           </div>
@@ -53,34 +54,53 @@ function CountdownTimer({ weddingDate }) {
   )
 }
 
-function StatCard({ icon: Icon, label, value, color = '#c9a84c', onClick }) {
+function StatCard({ icon: Icon, label, value, color = '#d4af37', onClick }) {
   return (
     <div
       className="card animate-fade-in"
       onClick={onClick}
       style={{
-        padding: '1.25rem',
+        padding: '1.35rem',
         cursor: onClick ? 'pointer' : 'default',
-        transition: 'transform 0.2s, border-color 0.2s',
+        transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
         display: 'flex',
         flexDirection: 'column',
         gap: '0.75rem',
+        position: 'relative',
+        overflow: 'hidden',
       }}
-      onMouseEnter={e => { if (onClick) e.currentTarget.style.borderColor = 'rgba(201,168,76,0.5)' }}
-      onMouseLeave={e => { if (onClick) e.currentTarget.style.borderColor = 'rgba(201,168,76,0.2)' }}
+      onMouseEnter={e => {
+        if (onClick) {
+          e.currentTarget.style.borderColor = 'rgba(212,175,55,0.55)'
+          e.currentTarget.style.transform = 'translateY(-3px)'
+          e.currentTarget.style.boxShadow = '0 12px 28px -5px rgba(212,175,55,0.2)'
+        }
+      }}
+      onMouseLeave={e => {
+        if (onClick) {
+          e.currentTarget.style.borderColor = 'rgba(212,175,55,0.18)'
+          e.currentTarget.style.transform = 'translateY(0)'
+          e.currentTarget.style.boxShadow = 'none'
+        }
+      }}
     >
-      <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
         <div style={{
-          background: `${color}22`,
-          borderRadius: '8px',
-          padding: '0.5rem',
+          background: `${color}18`,
+          border: `1px solid ${color}33`,
+          borderRadius: '10px',
+          padding: '0.55rem',
           display: 'flex',
         }}>
           <Icon size={18} color={color} />
         </div>
-        <span style={{ fontSize: '0.75rem', color: '#8899aa', textTransform: 'uppercase', letterSpacing: '0.08em' }}>{label}</span>
+        <span style={{ fontSize: '0.72rem', color: '#8a9eb5', textTransform: 'uppercase', letterSpacing: '0.09em', fontWeight: 500 }}>
+          {label}
+        </span>
       </div>
-      <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '2rem', color: '#f5f0e8' }}>{value}</div>
+      <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '2.1rem', color: '#f8f5ee', fontWeight: 500, lineHeight: 1.1 }}>
+        {value}
+      </div>
     </div>
   )
 }
@@ -126,51 +146,79 @@ export default function Dashboard({ weddingDate, setWeddingDate, coupleNames, se
   }, [coupleNames])
 
   const stats = [
-    { icon: Users, label: 'Guests', value: guestCount, view: 'guests' },
+    { icon: Users, label: 'Guests', value: guestCount, view: 'guests', color: '#d4af37' },
     { icon: MailCheck, label: 'RSVPs Received', value: rsvpCount, view: 'rsvps', color: '#48c78e' },
-    { icon: CheckSquare, label: 'Tasks Pending', value: todoCount, view: 'todos' },
-    { icon: DollarSign, label: 'Total Spent', value: `Rs. ${totalSpent.toLocaleString()}`, view: 'budget' },
-    { icon: Heart, label: 'Mood Board Items', value: moodCount, view: 'dresses' },
+    { icon: CheckSquare, label: 'Tasks Pending', value: todoCount, view: 'todos', color: '#e8c97a' },
+    { icon: DollarSign, label: 'Total Spent', value: `Rs. ${totalSpent.toLocaleString()}`, view: 'budget', color: '#f0b030' },
+    { icon: Heart, label: 'Mood Board Items', value: moodCount, view: 'dresses', color: '#ff6b9d' },
   ]
 
   return (
-    <div className="animate-fade-in" style={{ maxWidth: '900px', margin: '0 auto' }}>
-      {/* Header */}
+    <div className="animate-fade-in" style={{ maxWidth: '940px', margin: '0 auto' }}>
+      
+      {/* ── Maritime Luxury Header ── */}
       <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
+        
+        {/* Emblem Crest */}
+        <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.85rem' }}>
+          <div style={{ height: '1px', width: '40px', background: 'linear-gradient(90deg, transparent, rgba(212,175,55,0.6))' }} />
+          <div style={{
+            width: '38px', height: '38px', borderRadius: '50%',
+            background: 'linear-gradient(135deg, rgba(212,175,55,0.2) 0%, rgba(10,25,47,0.8) 100%)',
+            border: '1px solid rgba(212,175,55,0.4)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            boxShadow: '0 4px 15px rgba(212,175,55,0.25)',
+          }}>
+            <Anchor size={18} color="#d4af37" />
+          </div>
+          <div style={{ height: '1px', width: '40px', background: 'linear-gradient(90deg, rgba(212,175,55,0.6), transparent)' }} />
+        </div>
+
         {editingNames ? (
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
-            <input className="input-base" style={{ maxWidth: '160px' }} value={tempNames.bride}
+            <input className="input-base" style={{ maxWidth: '170px' }} value={tempNames.bride}
               onChange={e => setTempNames(p => ({ ...p, bride: e.target.value }))} placeholder="Bride's name" />
-            <span style={{ color: '#c9a84c', fontFamily: 'Cormorant Garamond, serif', fontSize: '1.5rem' }}>&</span>
-            <input className="input-base" style={{ maxWidth: '160px' }} value={tempNames.groom}
+            <span style={{ color: '#d4af37', fontFamily: 'Cormorant Garamond, serif', fontSize: '1.6rem' }}>&</span>
+            <input className="input-base" style={{ maxWidth: '170px' }} value={tempNames.groom}
               onChange={e => setTempNames(p => ({ ...p, groom: e.target.value }))} placeholder="Groom's name" />
             <button className="btn-gold" onClick={() => { setCoupleNames(tempNames); setEditingNames(false) }}><Check size={14} /></button>
             <button className="btn-ghost" onClick={() => setEditingNames(false)}><X size={14} /></button>
           </div>
         ) : (
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.75rem' }}>
-            <h1 className="font-serif" style={{ fontSize: '3rem', color: '#c9a84c', margin: 0, fontWeight: 300 }}>
-              {coupleNames?.bride || 'Bride'} <span style={{ color: '#8899aa' }}>&</span> {coupleNames?.groom || 'Groom'}
+            <h1 className="font-serif" style={{ fontSize: '3.3rem', color: '#f4e2a1', margin: 0, fontWeight: 400, letterSpacing: '0.03em', textShadow: '0 2px 20px rgba(212,175,55,0.3)' }}>
+              {coupleNames?.bride || 'Bride'} <span style={{ color: '#d4af37', fontStyle: 'italic', fontWeight: 300 }}>&</span> {coupleNames?.groom || 'Groom'}
             </h1>
             <button onClick={() => { setTempNames(coupleNames); setEditingNames(true) }}
-              style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#8899aa', padding: '0.25rem' }}>
-              <Edit2 size={14} />
+              title="Edit Names"
+              style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#8a9eb5', padding: '0.25rem' }}>
+              <Edit2 size={15} />
             </button>
           </div>
         )}
 
-        <p style={{ color: '#8899aa', fontSize: '0.8rem', letterSpacing: '0.15em', textTransform: 'uppercase', margin: '0.5rem 0 1.5rem' }}>
-          Wedding Planner ✦ Your Personal Space
+        <p style={{ color: '#8a9eb5', fontSize: '0.75rem', letterSpacing: '0.22em', textTransform: 'uppercase', margin: '0.6rem 0 1.25rem', fontWeight: 500 }}>
+          Navigating Eternal Love ✦ Wedding Planner
         </p>
-        <div className="gold-divider" />
+
+        <div className="gold-divider" style={{ maxWidth: '420px', margin: '0 auto' }} />
       </div>
 
-      {/* Countdown */}
-      <div className="card" style={{ padding: '2rem', marginBottom: '2rem', textAlign: 'center' }}>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
-          <CalendarHeart size={16} color="#c9a84c" />
-          <span className="font-serif" style={{ fontSize: '1.2rem', color: '#c9a84c' }}>
-            {weddingDate ? `The Big Day — ${new Date(weddingDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}` : 'Set Your Wedding Date'}
+      {/* ── Chronometer Countdown ── */}
+      <div className="card" style={{ padding: '2.25rem 2rem', marginBottom: '2rem', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
+        
+        {/* Decorative corner emblems */}
+        <div style={{ position: 'absolute', top: '12px', left: '16px', opacity: 0.25 }}>
+          <Compass size={22} color="#d4af37" />
+        </div>
+        <div style={{ position: 'absolute', top: '12px', right: '16px', opacity: 0.25 }}>
+          <Anchor size={22} color="#d4af37" />
+        </div>
+
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.55rem', marginBottom: '1.25rem' }}>
+          <CalendarHeart size={18} color="#d4af37" />
+          <span className="font-serif" style={{ fontSize: '1.35rem', color: '#f4e2a1', letterSpacing: '0.04em' }}>
+            {weddingDate ? `The Voyage Begins — ${new Date(weddingDate).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}` : 'Set Your Wedding Date'}
           </span>
         </div>
 
@@ -183,11 +231,13 @@ export default function Dashboard({ weddingDate, setWeddingDate, coupleNames, se
           </div>
         ) : (
           <div>
-            {weddingDate
-              ? <CountdownTimer weddingDate={weddingDate} />
-              : <p style={{ color: '#8899aa', fontSize: '0.85rem' }}>Set your wedding date to see the countdown</p>
-            }
-            <button className="btn-ghost" style={{ margin: '1rem auto 0', display: 'flex' }}
+            {weddingDate ? (
+              <CountdownTimer weddingDate={weddingDate} />
+            ) : (
+              <p style={{ color: '#8a9eb5', fontSize: '0.85rem' }}>Set your wedding date to see the captain's chronometer countdown</p>
+            )}
+            
+            <button className="btn-ghost" style={{ margin: '1.25rem auto 0', display: 'inline-flex' }}
               onClick={() => { setTempDate(weddingDate); setEditingDate(true) }}>
               <Edit2 size={12} /> {weddingDate ? 'Change Date' : 'Set Date'}
             </button>
@@ -195,19 +245,42 @@ export default function Dashboard({ weddingDate, setWeddingDate, coupleNames, se
         )}
       </div>
 
-      {/* Stats */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(190px, 1fr))', gap: '1rem', marginBottom: '2rem' }}>
+      {/* ── Stats Grid ── */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(170px, 1fr))', gap: '1rem', marginBottom: '2rem' }}>
         {stats.map(s => (
           <StatCard key={s.label} {...s} onClick={() => setActiveView(s.view)} />
         ))}
       </div>
 
-      {/* Quick note */}
-      <div className="card" style={{ padding: '1.5rem', textAlign: 'center' }}>
-        <p className="font-serif" style={{ fontSize: '1.1rem', color: '#8899aa', fontStyle: 'italic', margin: 0 }}>
-          "Every love story is beautiful, but ours is my favourite."
+      {/* ── Seaman's Romantic Quote Card ── */}
+      <div className="card" style={{
+        padding: '2rem',
+        textAlign: 'center',
+        background: 'linear-gradient(135deg, rgba(28, 59, 99, 0.25) 0%, rgba(7, 17, 30, 0.8) 100%)',
+        borderColor: 'rgba(212, 175, 55, 0.25)',
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.6rem', marginBottom: '0.75rem', color: '#d4af37' }}>
+          <Waves size={16} />
+          <Anchor size={16} />
+          <Waves size={16} />
+        </div>
+        
+        <p className="font-serif" style={{
+          fontSize: '1.3rem',
+          color: '#f8f5ee',
+          fontStyle: 'italic',
+          margin: '0 0 0.6rem',
+          lineHeight: 1.6,
+          fontWeight: 400,
+        }}>
+          "No matter how wide the oceans or how distant the horizon, love is the anchor that always guides us home."
+        </p>
+        
+        <p style={{ fontSize: '0.72rem', color: '#d4af37', letterSpacing: '0.15em', textTransform: 'uppercase', margin: 0, fontWeight: 500 }}>
+          Fair Winds & Eternal Love · Ever After
         </p>
       </div>
+
     </div>
   )
 }

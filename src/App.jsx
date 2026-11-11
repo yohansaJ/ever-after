@@ -10,7 +10,7 @@ import FamilyAccessModal from './components/FamilyAccessModal'
 import { auth, googleProvider } from './firebase'
 import { onAuthStateChanged, signInWithPopup, signOut } from 'firebase/auth'
 import { subscribeWeddingDetails, saveWeddingDetails, addAllowedMember } from './services/db'
-import { Gem, Lock, LogIn, LogOut, ShieldAlert } from 'lucide-react'
+import { Anchor, Compass, Lock, LogIn, LogOut, Waves } from 'lucide-react'
 import './index.css'
 
 function App() {
@@ -139,32 +139,36 @@ function App() {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        background: 'radial-gradient(circle at center, #142236 0%, #0d1b2a 100%)',
+        background: 'radial-gradient(circle at center, #102540 0%, #07111e 100%)',
         padding: '1.5rem',
       }}>
         <div className="card animate-fade-in" style={{
           maxWidth: '440px',
           width: '100%',
-          padding: '2.5rem 2rem',
+          padding: '2.75rem 2rem',
           textAlign: 'center',
-          borderColor: 'rgba(201, 168, 76, 0.3)',
-          boxShadow: '0 25px 50px rgba(0, 0, 0, 0.6)',
+          borderColor: 'rgba(212, 175, 55, 0.35)',
+          boxShadow: '0 25px 60px rgba(0, 0, 0, 0.7)',
         }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.6rem', marginBottom: '0.5rem' }}>
-            <Gem size={22} color="#c9a84c" />
-            <h1 className="font-serif" style={{ fontSize: '2.4rem', color: '#c9a84c', margin: 0, letterSpacing: '0.05em' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.65rem', marginBottom: '0.5rem' }}>
+            <Anchor size={22} color="#d4af37" />
+            <h1 className="font-serif" style={{ fontSize: '2.5rem', color: '#f4e2a1', margin: 0, letterSpacing: '0.06em', fontWeight: 500 }}>
               Ever After
             </h1>
-            <Gem size={22} color="#c9a84c" />
+            <Compass size={22} color="#d4af37" />
           </div>
 
-          <div className="gold-divider" style={{ margin: '1rem 0 1.5rem' }} />
+          <p style={{ fontSize: '0.65rem', color: '#d4af37', letterSpacing: '0.22em', textTransform: 'uppercase', margin: '0.2rem 0 0' }}>
+            Two Souls · One Anchor ⚓
+          </p>
 
-          <p className="font-serif" style={{ fontSize: '1.15rem', color: '#f5f0e8', margin: '0 0 0.5rem' }}>
+          <div className="gold-divider" style={{ margin: '1.25rem 0 1.5rem' }} />
+
+          <p className="font-serif" style={{ fontSize: '1.25rem', color: '#f8f5ee', margin: '0 0 0.4rem', fontWeight: 500 }}>
             {coupleNames.bride} & {coupleNames.groom}
           </p>
-          <p style={{ fontSize: '0.78rem', color: '#8899aa', margin: '0 0 2rem', lineHeight: 1.6 }}>
-            Private Wedding Planning Space. Please sign in with an authorized Google account to continue.
+          <p style={{ fontSize: '0.78rem', color: '#8a9eb5', margin: '0 0 2rem', lineHeight: 1.6 }}>
+            Private Wedding Planning Space. Please sign in with an authorized Google account to step aboard.
           </p>
 
           <button
