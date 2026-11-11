@@ -11,7 +11,7 @@ const NAV_ITEMS = [
   { id: 'dresses', label: 'Mood Board', icon: Heart },
 ]
 
-export default function Sidebar({ activeView, setActiveView, coupleNames, user }) {
+export default function Sidebar({ activeView, setActiveView, coupleNames, user, onOpenFamilyAccess }) {
   const handleSignIn = async () => {
     try {
       await signInWithPopup(auth, googleProvider)
@@ -98,25 +98,35 @@ export default function Sidebar({ activeView, setActiveView, coupleNames, user }
         </div>
 
         {user ? (
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', overflow: 'hidden' }}>
-              {user.photoURL ? (
-                <img src={user.photoURL} alt="User" style={{ width: '28px', height: '28px', borderRadius: '50%', border: '1px solid #c9a84c' }} />
-              ) : (
-                <div style={{ width: '28px', height: '28px', borderRadius: '50%', background: '#c9a84c', color: '#0d1b2a', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', fontSize: '0.75rem' }}>
-                  {user.displayName?.[0] || 'U'}
+          <div>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem', marginBottom: '0.6rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', overflow: 'hidden' }}>
+                {user.photoURL ? (
+                  <img src={user.photoURL} alt="User" style={{ width: '28px', height: '28px', borderRadius: '50%', border: '1px solid #c9a84c' }} />
+                ) : (
+                  <div style={{ width: '28px', height: '28px', borderRadius: '50%', background: '#c9a84c', color: '#0d1b2a', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', fontSize: '0.75rem' }}>
+                    {user.displayName?.[0] || 'U'}
+                  </div>
+                )}
+                <div style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', fontSize: '0.75rem', color: '#f5f0e8' }}>
+                  {user.displayName || user.email?.split('@')[0]}
                 </div>
-              )}
-              <div style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', fontSize: '0.75rem', color: '#f5f0e8' }}>
-                {user.displayName || user.email?.split('@')[0]}
               </div>
+              <button
+                onClick={handleSignOut}
+                title="Sign Out"
+                style={{ background: 'none', border: 'none', color: '#8899aa', cursor: 'pointer', padding: '0.2rem' }}
+              >
+                <LogOut size={15} />
+              </button>
             </div>
+
             <button
-              onClick={handleSignOut}
-              title="Sign Out"
-              style={{ background: 'none', border: 'none', color: '#8899aa', cursor: 'pointer', padding: '0.2rem' }}
+              onClick={onOpenFamilyAccess}
+              className="btn-ghost"
+              style={{ width: '100%', justifyContent: 'center', fontSize: '0.7rem', padding: '0.35rem 0.5rem' }}
             >
-              <LogOut size={15} />
+              <Users size={13} /> Family Access
             </button>
           </div>
         ) : (

@@ -9,7 +9,9 @@ import {
   onSnapshot,
   query,
   orderBy,
-  serverTimestamp
+  serverTimestamp,
+  arrayUnion,
+  arrayRemove
 } from 'firebase/firestore'
 
 // ==========================================
@@ -31,6 +33,26 @@ export function subscribeWeddingDetails(callback) {
 export async function saveWeddingDetails(details) {
   const docRef = doc(db, 'wedding_settings', 'details')
   await setDoc(docRef, { ...details, updatedAt: serverTimestamp() }, { merge: true })
+}
+
+export async function addAllowedMember(email) {
+  const cleanEmail = (email || '').trim().toLowerCase()
+  if (!cleanEmail) return
+  const docRef = doc(db, 'wedding_settings', 'details')
+  await setDoc(docRef, {
+    allowedMembers: arrayUnion(cleanEmail),
+    updatedAt: serverTimestamp()
+  }, { merge: true })
+}
+
+export async function removeAllowedMember(email) {
+  const cleanEmail = (email || '').trim().toLowerCase()
+  if (!cleanEmail) return
+  const docRef = doc(db, 'wedding_settings', 'details')
+  await setDoc(docRef, {
+    allowedMembers: arrayRemove(cleanEmail),
+    updatedAt: serverTimestamp()
+  }, { merge: true })
 }
 
 // ==========================================
