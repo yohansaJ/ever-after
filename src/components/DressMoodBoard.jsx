@@ -162,7 +162,7 @@ export default function DressMoodBoard() {
             <h2 className="font-serif" style={{ fontSize: '2rem', color: '#c9a84c', margin: 0 }}>Mood Board</h2>
           </div>
           <p style={{ color: '#8899aa', fontSize: '0.78rem', margin: '0.3rem 0 0' }}>
-            Outfits, decor & inspiration · Cloudinary photo cloud storage ☁️
+            Outfits, decor & inspiration
           </p>
         </div>
         <button className="btn-gold" onClick={() => (adding ? setAdding(false) : handleStartAdd())}>

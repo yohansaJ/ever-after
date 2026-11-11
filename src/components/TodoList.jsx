@@ -107,7 +107,7 @@ export default function TodoList() {
             <h2 className="font-serif" style={{ fontSize: '2rem', color: '#c9a84c', margin: 0 }}>To-Do List</h2>
           </div>
           <p style={{ color: '#8899aa', fontSize: '0.8rem', margin: '0.25rem 0 0' }}>
-            {doneCount} of {todos.length} tasks completed · Synced with Firestore ☁️
+            {doneCount} of {todos.length} tasks completed
           </p>
         </div>
         <button className="btn-gold" onClick={() => (adding ? setAdding(false) : handleStartAdd())}>

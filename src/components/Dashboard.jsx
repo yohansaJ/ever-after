@@ -160,7 +160,7 @@ export default function Dashboard({ weddingDate, setWeddingDate, coupleNames, se
         )}
 
         <p style={{ color: '#8899aa', fontSize: '0.8rem', letterSpacing: '0.15em', textTransform: 'uppercase', margin: '0.5rem 0 1.5rem' }}>
-          Wedding Planner ✦ Your Personal Space · Synced to Cloud ☁️
+          Wedding Planner ✦ Your Personal Space
         </p>
         <div className="gold-divider" />
       </div>

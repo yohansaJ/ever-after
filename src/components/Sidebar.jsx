@@ -1,4 +1,4 @@
-import { Users, CheckSquare, DollarSign, Heart, LayoutDashboard, Gem, LogIn, LogOut, Cloud, MailCheck } from 'lucide-react'
+import { Users, CheckSquare, DollarSign, Heart, LayoutDashboard, Gem, LogIn, LogOut, MailCheck } from 'lucide-react'
 import { auth, googleProvider } from '../firebase'
 import { signInWithPopup, signOut } from 'firebase/auth'
 
@@ -90,13 +90,8 @@ export default function Sidebar({ activeView, setActiveView, coupleNames, user, 
         })}
       </nav>
 
-      {/* Cloud & User Sync Status */}
+      {/* User Section */}
       <div style={{ padding: '1rem', borderTop: '1px solid rgba(201,168,76,0.1)', background: 'rgba(0,0,0,0.15)' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0.6rem', fontSize: '0.68rem', color: '#48c78e' }}>
-          <Cloud size={13} />
-          <span>Cloud Sync Active</span>
-        </div>
-
         {user ? (
           <div>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem', marginBottom: '0.6rem' }}>

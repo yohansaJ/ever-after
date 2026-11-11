@@ -130,7 +130,7 @@ export default function GuestList() {
             <h2 className="font-serif" style={{ fontSize: '2rem', color: '#c9a84c', margin: 0 }}>Guest List</h2>
           </div>
           <p style={{ color: '#8899aa', fontSize: '0.78rem', margin: '0.3rem 0 0', letterSpacing: '0.03em' }}>
-            Manage and edit your wedding guests · Synced with Cloud Firestore ☁️
+            Manage and edit your wedding guests
           </p>
         </div>
 

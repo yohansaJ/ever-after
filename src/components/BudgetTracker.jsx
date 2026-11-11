@@ -142,7 +142,7 @@ export default function BudgetTracker() {
           <div>
             <h2 className="font-serif" style={{ fontSize: '2rem', color: '#c9a84c', margin: 0 }}>Budget Tracker</h2>
             <p style={{ color: '#8899aa', fontSize: '0.78rem', margin: '0.2rem 0 0' }}>
-              Real-time expense tracking & budget management · Synced with cloud ☁️
+              Track expenses & manage your wedding budget
             </p>
           </div>
         </div>
